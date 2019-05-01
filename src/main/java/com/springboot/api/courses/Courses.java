@@ -1,26 +1,43 @@
-package com.springboot.api.topic;
+package com.springboot.api.courses;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import com.springboot.api.topic.Topics;
 
 @Entity
-public class Topics {
+public class Courses {
 	@Id
 	private String id;
 	private String name;
 	private String description;
 	
-	public Topics() {
+	//LazyLoading this prevents topic data to be displayed while loading a course
+	@ManyToOne
+	private Topics topics;
+	
+	public Courses() {
 	
 	}
-	
-	public Topics(String id, String name, String description) {
+
+	public Courses(String id, String name, String description, Topics topics) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
+		this.topics = new Topics("topicId","","");
+	}
+
+	public Topics getTopic() {
+		return topics;
 	}
 	
+	public void setTopic(Topics topics) {
+		this.topics = topics;
+	}
+
 	public String getId() {
 		return id;
 	}
